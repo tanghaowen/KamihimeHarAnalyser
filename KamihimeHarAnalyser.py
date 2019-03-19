@@ -7,7 +7,6 @@ import re
 from haralyzer import HarPage, HarParser
 from sys import argv
 def dealWithHar():
-    battleData = BattleData()
     with open(harFileName, 'r', encoding='UTF-8') as f:
         objects = ijson.items(f, 'log.entries.item')
         entries = []
@@ -233,13 +232,8 @@ class BattleData:
     def addOneTurn(self , round , fromWhere, fromPos,fromCharacterName, toWhere, toTargetName, damage,attackTimes , damageType = 'attack' , abilityName='' , abilitySummary=''):
         self.turns.append({'round':round , 'from': fromWhere, 'fromPos': fromPos , 'fromCharacterName':fromCharacterName, 'to': toWhere, 'toTargetName':toTargetName,'damage': damage ,'attackTimes':attackTimes,'damageType':damageType,'abilityName':abilityName,'abilitySummary':abilitySummary })
 
-
+battleData = BattleData()
 harFileName = ''
-if len(argv)>=2:
-    for filename in argv[1:]:
-        harFileName = filename
-        dealWithHar()
-
-
-
-input()
+if len(argv)==2:
+    harFileName = argv[1]
+    dealWithHar()
